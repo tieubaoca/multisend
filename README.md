@@ -9,14 +9,16 @@ npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+npx hardhat ignition deploy ./ignition/modules/MultiSend.ts
 ```
 
 ## MULTI SEND TOKEN
 
-### Create recipient.csv file with the following example file
-### Fill in the info in .env file with the following example file
-### Run the following command
+ Create recipient.csv file with the following example file
+ ***
+ Fill in the info in .env file with the following example file
+ ***
+ Run the following command
 ```shell
 npx hardhat run --network [your-network] scripts/multisend.ts
 ```
