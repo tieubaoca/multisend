@@ -22,6 +22,28 @@ contract MultiSend is AccessControl {
         }
     }
 
+    function multiSendERC20(
+        address token,
+        address[] calldata recipients,
+        uint256[] calldata values
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(
+            recipients.length == values.length,
+            "MultiSend: recipients and values length mismatch"
+        );
+        for (uint256 i = 0; i < recipients.length; i++) {
+            (bool success, ) = token.call(
+                abi.encodeWithSignature(
+                    "transferFrom(address,address,uint256)",
+                    msg.sender,
+                    recipients[i],
+                    values[i]
+                )
+            );
+            require(success, "MultiSend: transfer failed");
+        }
+    }
+
     function claimDump(
         address payable recipient
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
